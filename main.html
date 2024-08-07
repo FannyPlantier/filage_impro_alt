@@ -1,20 +1,25 @@
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Filage Thur'Improvistess</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ods-parser/0.2.0/ods-parser.min.js"></script>
+    <script src="script-filage.js" defer></script>
 </head>
 <body>
     <h1>Génération de spectacle</h1>
     <form method="post" enctype="multipart/form-data">
         <div>Choisissez le fichier à importer</label>
             <div>
-                <input type="file" id="file" name="file" accept=".csv, .xlm, .xls, .xlms, .xlsx, .xlt, .xltm, .xtlx, .ods, .ots, .fods, .uos"/>
+                <input type="file" id="fileInput" name="file" accept=".csv, .xlm, .xls, .xlms, .xlsx, .xlt, .xltm, .xtlx, .ods, .ots, .fods, .uos"/>
             </div>
         </div>
         <div>
-          <button type="submit">Charger le fichier</button>
+          <button type="button" id="processButton">Générer le spectacle</button>
         </div>
+        <pre id="output"></pre>
       </form>
 </body>
 </html>
