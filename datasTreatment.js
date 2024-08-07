@@ -23,17 +23,27 @@ function generateCategories(){
 function selectRandomPlayers(category, forbidenPlayers){
     var candidates = category.players.filter(c=>!forbidenPlayers.includes(c));
     const shuffled = candidates.sort(()=>0.5 - Math.random());
-    return shuffled.slice(0,category.nbPlayer);
+    if(candidates.length >= category.nbPlayer){
+        return shuffled.slice(0,category.nbPlayer);
+    } else {
+        return false;
+    }
 }
 
 function generateSketchList(){
     let categories = generateCategories();
     let sketchList = [];
     let forbidenPlayers = [];
-    categories.forEach((category)=>{
-        sketchList.push(new Sketch(category, selectRandomPlayers(category,forbidenPlayers)));
+    for(let category of categories)
+    {
+        nextPlayers = selectRandomPlayers(category,forbidenPlayers);
+        if(nextPlayers != false){
+            sketchList.push(new Sketch(category, nextPlayers));
+        } else {
+            break;
+        }
         forbidenPlayers = sketchList[sketchList.length-1].players;
-    });
+    }
     return sketchList;
 }
 
