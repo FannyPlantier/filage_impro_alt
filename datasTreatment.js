@@ -21,18 +21,22 @@ function generateCategories(){
 }
 
 function selectRandomPlayers(category, forbidenPlayers){
-    const shuffled = category.players.sort(()=>0.5 - Math.random());
+    var candidates = category.players.filter(c=>!forbidenPlayers.includes(c));
+    const shuffled = candidates.sort(()=>0.5 - Math.random());
     return shuffled.slice(0,category.nbPlayer);
 }
 
-function generateSketch(){
+function generateSketchList(){
     let categories = generateCategories();
-    return new Sketch(categories[0], selectRandomPlayers(categories[0],[]));
-
+    let sketchList = [];
+    let forbidenPlayers = [];
+    categories.forEach((category)=>{
+        sketchList.push(new Sketch(category, selectRandomPlayers(category,forbidenPlayers)));
+        forbidenPlayers = sketchList[sketchList.length-1].players;
+    });
+    return sketchList;
 }
 
-
-
 function generateShow() {
-    document.getElementById('output').textContent = JSON.stringify(generateSketch());
+    document.getElementById('output').textContent = JSON.stringify(generateSketchList());
 }
