@@ -6,7 +6,8 @@
     <title>Filage Thur'Improvistess</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ods-parser/0.2.0/ods-parser.min.js"></script>
-    <script src="script-filage.js" defer></script>
+    <script src="readDatasFile.js" defer></script>
+    <script src="datasTreatment.js" defer></script>
 </head>
 <body>
     <h1>Génération de spectacle</h1>
@@ -17,7 +18,7 @@
             </div>
         </div>
         <div>
-          <button type="button" id="processButton">Générer le spectacle</button>
+          <button type="button" id="processButton" onclick="generateShow()">Générer le spectacle</button>
         </div>
         <pre id="output"></pre>
       </form>
