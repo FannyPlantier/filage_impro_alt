@@ -18,8 +18,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 const sheetName = workbook.SheetNames[0];
                 const worksheet = workbook.Sheets[sheetName];
                 data = XLSX.utils.sheet_to_json(worksheet);  
-                console.log(JSON.stringify(data));
-                // document.getElementById('output').textContent = JSON.stringify(data, null, 2);
             }
                 
         reader.readAsArrayBuffer(file);

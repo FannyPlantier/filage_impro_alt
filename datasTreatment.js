@@ -58,7 +58,7 @@ function generateSketchList(){
     let categories = generateCategories();
     let sketchList = [];
     let essais = 0;
-    while(!isOk(sketchList)){
+    while(!isOk(sketchList) && essais<500000){
         essais ++
         sketchList = [];
         let forbidenPlayers = [];
@@ -76,12 +76,16 @@ function generateSketchList(){
         }
 
     }
-    return sketchList.map(s=>s.toString()).join("<br>") 
-    + '<br>' 
-    + '<br>' 
-    + JSON.stringify(countOccurrences(sketchList.map(s=>s.players).flatMap(x=>x)))
-    + '<br>'
-    + 'généré en ' + essais + 'esssais';
+    if (essais<500000){
+        return sketchList.map(s=>s.toString()).join("<br>") 
+        + '<br>' 
+        + '<br>' 
+        + JSON.stringify(countOccurrences(sketchList.map(s=>s.players).flatMap(x=>x)))
+        + '<br>'
+        + 'généré en ' + essais + 'esssais';
+    } else {
+        return "Désolé, pas de solution malgré 500 000 essais..."
+    }
 }
 
 function generateShow() {
