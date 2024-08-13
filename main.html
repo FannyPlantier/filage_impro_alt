@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Filage Thur'Improvistess</title>
+    <title>Filage Thur'Improvistes</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ods-parser/0.2.0/ods-parser.min.js"></script>
     <script src="readDatasFile.js" defer></script>
@@ -12,13 +12,27 @@
 <body>
     <h1>Génération de spectacle</h1>
     <form method="post" enctype="multipart/form-data">
-        <div>Choisissez le fichier à importer</label>
-            <div>
-                <input type="file" id="fileInput" name="file" accept=".csv, .xlm, .xls, .xlms, .xlsx, .xlt, .xltm, .xtlx, .ods, .ots, .fods, .uos"/>
-            </div>
+        <div>
+            <label for="fileInput">Choisissez le fichier à importer</label>
+            <input type="file" id="fileInput" name="file" accept=".csv, .xlm, .xls, .xlms, .xlsx, .xlt, .xltm, .xtlx, .ods, .ots, .fods, .uos"/>
+        </div>
+        <div>
+            <label for="nbPassages"> Choisissez le nombre de passage pour chaque joueur</label>
+            <input type="number" id="nbPassages" name="nbPassages" min="2" max="10" value="4"/>
+        </div>
+        <div>
+            <label for="tolerance"> Tolérance de différence de passages entre les joueurs </label>
+            <input type="number" id="tolerance" name="tolerance" min="0" max="5" value="1"/>
+        </div>
+        <div>
+            <label for="nbSketchs"> Choisissez le nombre de sketchs pour cette représentation</label>
+            <input type="number" id="nbSketchs" name="nbSketchs" min="4" max="20" value="12"/>
         </div>
         <div>
           <button type="button" id="processButton" onclick="generateShow()">Générer le spectacle</button>
+        </div>
+        <div>
+            <button type="reset" onclick="deleteOutput()">Essayer une nouvelle configuration</button>
         </div>
         <div id="output"></div>
       </form>

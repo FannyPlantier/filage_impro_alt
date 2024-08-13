@@ -48,11 +48,21 @@ function countOccurrences(list) {
     return counts;
 }
 
+function nbApparitionIsInTolerance (nbPassagePourUnActeur){
+let nbPassages = parseInt(document.getElementById("nbPassages").value);
+let tolerance = parseInt(document.getElementById("tolerance").value);
+let ecart = Math.abs(nbPassages - nbPassagePourUnActeur);
+return ecart <= tolerance
+}
+
 function isOk(sketchList){
     let apparitions = sketchList.map(s=>s.players).flatMap(x=>x);
-    return sketchList.length >= 12
-    && Object.values(countOccurrences(apparitions)).filter(nbApparition=> !(nbApparition>=3 && nbApparition<=5)).length == 0;
+    let nbSketchs = parseInt(document.getElementById("nbSketchs").value);
+    return sketchList.length == nbSketchs 
+    && Object.values(countOccurrences(apparitions)).filter(nbApparition=> !(nbApparitionIsInTolerance(nbApparition))).length == 0;
 }
+
+
 
 function generateSketchList(){
     let categories = generateCategories();
@@ -74,20 +84,23 @@ function generateSketchList(){
             }
             forbidenPlayers = sketchList[sketchList.length-1].players;
         }
-
     }
-    if (essais<500000){
-        return sketchList.map(s=>s.toString()).join("<br>") 
-        + '<br>' 
-        + '<br>' 
-        + JSON.stringify(countOccurrences(sketchList.map(s=>s.players).flatMap(x=>x)))
-        + '<br>'
-        + 'généré en ' + essais + 'esssais';
-    } else {
-        return "Désolé, pas de solution malgré 500 000 essais..."
-    }
+       if(essais<500000){
+            return sketchList.map(s=>s.toString()).join("<br>") 
+            + '<br>' 
+            + '<br>' 
+            + JSON.stringify(countOccurrences(sketchList.map(s=>s.players).flatMap(x=>x)))
+            + '<br>'
+            + 'généré en ' + essais + 'esssais';
+            } else {
+               return "Sorry, je n'ai pas réussi à traiter votre demande malgré 500 000 essais... Il se peut que cette configuration ne fonctionne pas !"
+        }
 }
 
 function generateShow() {
     document.getElementById('output').innerHTML = generateSketchList();
+}   
+
+function deleteOutput(){
+    document.getElementById('output').innerHTML = "";
 }
